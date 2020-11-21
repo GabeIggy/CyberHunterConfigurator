@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<head>
+    <title>Cyber Hunter Configurator</title>
+</head>
+<body>
+    <h1>Cyber Hunter Configurator</h1>
+    <hr>
+    <h2>Graphic Configuration</h2>
+    <h3>Frame Limiter</h3>
+    <p>For some reason this was ported to the PC version, many people tend to lower this value and then complain about low performance without knowing what it does.</p>
+    <input type="radio" name="fps_level_pc" id="fps0" value="0">
+    <label for="fps0">25FPS</label><br>
+    <input type="radio" name="fps_level_pc" id="fps1" value="1">
+    <label for="fps1">30FPS</label><br>
+    <input type="radio" name="fps_level_pc" id="fps2" value="2">
+    <label for="fps2">45FPS</label><br>
+    <input type="radio" name="fps_level_pc" id="fps3" value="3" checked>
+    <label for="fps3">60FPS</label><br>
+    <input type="radio" name="fps_level_pc" id="fps4" value="4">
+    <label for="fps4">80FPS</label> <sup><abbr title="This option is not supported by NetEase and it may be considered cheating (Altering game files). Use at your own risk" style="color:red">!!! Unsupported</abbr></sup>
+
+    <h3>Graphic Level</h3> <!-- This setting controls 'graphic_quality' and 'graphic_quality_show' -->
+    <p>This is the actual graphical settings, sadly, there's no advanced graphical settings nor resolution or rendering scale.</p>
+    <input type="radio" name="graphic_quality" id="gra0" value="0">
+    <label for="gra0">Minimal</label> <sup>Sacrifies most of the graphical options for maximum performance. <abbr title="This option is not supported by NetEase and it may be considered cheating (Altering game files). Use at your own risk" style="color:red">!!! Unsupported</abbr></sup> <br>
+    <input type="radio" name="graphic_quality" id="gra1" value="1">
+    <label for="gra1">Low</label> <sup><abbr title="This option is not supported by NetEase and it may be considered cheating (Altering game files). Use at your own risk" style="color:red">!!! Unsupported</abbr></sup> <br>
+    <input type="radio" name="graphic_quality" id="gra2" value="2">
+    <label for="gra2">HD</label> <sup>Disables special lighting</sup><br>
+    <input type="radio" name="graphic_quality" id="gra3" value="3">
+    <label for="gra3">UHD</label><br>
+    <input type="radio" name="graphic_quality" id="gra4" value="4" checked>
+    <label for="gra4">Best</label> <sup>Enables most of the graphical effects in-game, this includes sandstorms in Void Lands.</sup>
+
+    <h3>HDR</h3>
+    <p>High Dynamic Range, the most noticeable change is distant fog.</p>
+    <p>HDR option is hidden on PC, use at your own risk</p>
+    <input type="radio" name="graphic_hdr" id="hdr-1" value="-1" checked>
+    <label for="hdr-1">Autodetect</label><br>
+    <input type="radio" name="graphic_hdr" id="hdr0" value="0">
+    <label for="hdr0">Force Disable</label> <sup><abbr title="This option is not supported by NetEase and it may be considered cheating (Altering game files). Use at your own risk" style="color:red">!!! Unsupported</abbr></sup> <br>
+    <input type="radio" name="graphic_hdr" id="hdr1" value="1">
+    <label for="hdr1">Force Enable</label> <sup><abbr title="This option is not supported by NetEase and it may be considered cheating (Altering game files). Use at your own risk" style="color:red">!!! Unsupported</abbr></sup> <br>
+
+    <h2>Mouse Sensitivity</h2>
+    <p>Due to an oversight in the programming the game does not change the firing sensitivity if you adjust it from options.</p>
+    <p>This tool automatically adjust the firing sensitivity according to your own values.</p>
+
+    <input type="checkbox" id="sens_auto" onchange="checkauto()" checked> <label for="sens_auto">Automatically adjust all scopes based on the general sensitivity</label>
+    <br>
+    <h4>General Sensitivity (Free cam, noscope and landing)</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="50" class="slider" id="general_sens"> <label for="general_sens">50%</label>
+
+    <h4>First Person no-scope (Factions)</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="40" class="slider" id="no_mirror_fps"> <label for="no_mirror_fps">40%</label>
+
+    <h4>Red Dot Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="25" class="slider" id="red_dot"> <label for="red_dot">25%</label>
+
+    <h4>x2 Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="15" class="slider" id="scope2_value"> <label for="scope2_value">15%</label>
+
+    <h4>x3 Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="11" class="slider" id="scope3_value"> <label for="scope3_value">11%</label>
+
+    <h4>x4 Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="7" class="slider" id="scope4_value"> <label for="scope4_value">7%</label>
+
+    <h4>x6 Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="6" class="slider" id="scope6_value"> <label for="scope6_value">6%</label>
+
+    <h4>x8 Scope</h4>
+    <input type="range" oninput="changesens(this)" min="1" max="150" value="5" class="slider" id="scope8_value"> <label for="scope8_value">5%</label>
+    <hr>
+    <h2>Generate Config</h2>
+    <button type="button" onclick="generatecfg()">Generate Config</button>
+    <br>
+    <p id="unsafe_warning" style="color:red"></p>
+    <textarea cols="100" rows="30" charswidth="23" id="output_config" readonly>Click to generate config</textarea>
+
+    <hr>
+
+    <h2>FAQ</h2>
+    <h3>How can apply the configuration to my game?</h3>
+    <p>Make sure the game is closed. Go to the Game Directory, search the <i>config.ini</i> file and then replace the section you want. (<i>[graphic_setting]</i> or <i>[sensitive_setting]</i>) If the section is missing from the file just append it at the end of the file. Save and start the game.</p>
+
+    <h3>What motivated you to make this?</h3>
+    <p>Mostly love for the game and I wanted to help friends to find their perfect sensitivity setting, making it public means it will help more people.</p>
+
+    <h3>How is the sensitivity calculated?</h3>
+    <p>The game uses a "percentage" meter that's is not standard. The best way you can find your perfect sensitivity is converting it from another game. <a href="https://www.mouse-sensitivity.com/">This website</a> may help you to find the correct value.</p>
+
+    <h3>Is it safe to use?</h3>
+    <p>As long you do not use the unsupported options you should be safe. Modifying the .ini file to access the "hidden" options may be considered cheating according to NetEase but nobody in the community has been banned so far. Still, I won't take responsibility if anything happens.</p>
+
+    <h3>Is this considered cheating?</h3>
+    <p>This does not alter the game process nor it injects into memory to give you an unfair advantage, so in most games this wouldn't be considered cheating, but you know, NetEase. Refer to the previous point.</p>
+
+    <h3>Where I can find the source code?</h3>
+    <p><a href="https://github.com/GabeIggy/CyberHunterConfigurator">Here</a>. Contributions are welcomed.</p>
+
+    <h3>How can I contact you?</h3>
+
+    <p>Either via GitHub (see above), Discord: Gabe Iggy#9999 or in Cyber Hunter: ID 2127762512 (NA Server). I'm active in-game at the time I'm writing this.</p>
+    
+    <script>
+        function changesens(id)
+        {
+            id.labels[0].innerHTML = `${id.value}%`;
+            if(document.getElementById("sens_auto").checked && id.id == "general_sens")
+            {
+                document.getElementById("no_mirror_fps").value = (id.value*0.80).toFixed(0);
+                document.getElementById("no_mirror_fps").labels[0].innerHTML = `${(id.value*0.80).toFixed(0)}%`;
+        
+                document.getElementById("red_dot").value = (id.value*0.50).toFixed(0);
+                document.getElementById("red_dot").labels[0].innerHTML = `${(id.value*0.50).toFixed(0)}%`;
+        
+                document.getElementById("scope2_value").value = (id.value*0.30).toFixed(0);
+                document.getElementById("scope2_value").labels[0].innerHTML = `${(id.value*0.30).toFixed(0)}%`;
+        
+                document.getElementById("scope3_value").value = (id.value*0.22).toFixed(0);
+                document.getElementById("scope3_value").labels[0].innerHTML = `${(id.value*0.22).toFixed(0)}%`;
+        
+                document.getElementById("scope4_value").value = (id.value*0.14).toFixed(0);
+                document.getElementById("scope4_value").labels[0].innerHTML = `${(id.value*0.14).toFixed(0)}%`;
+        
+                document.getElementById("scope6_value").value = (id.value*0.12).toFixed(0);
+                document.getElementById("scope6_value").labels[0].innerHTML = `${(id.value*0.12).toFixed(0)}%`;
+        
+                document.getElementById("scope8_value").value = (id.value*0.10).toFixed(0);
+                document.getElementById("scope8_value").labels[0].innerHTML = `${(id.value*0.10).toFixed(0)}%`;
+            }
+        }
+        
+        function generatecfg()
+        {
+            let fps_level_pc = 0;
+            let fps_level_pc_radios = document.getElementsByName('fps_level_pc');
+        
+            for (let i = 0, length = fps_level_pc_radios.length; i < length; i++) 
+            {
+                if (fps_level_pc_radios[i].checked) 
+                {
+                    fps_level_pc = fps_level_pc_radios[i].value;
+                    break;
+                }
+            }
+        
+            let graphic_quality = 0;
+            let graphic_quality_radios = document.getElementsByName('graphic_quality');
+        
+            for (let i = 0, length = graphic_quality_radios.length; i < length; i++) 
+            {
+                if (graphic_quality_radios[i].checked) 
+                {
+                    graphic_quality = graphic_quality_radios[i].value;
+                    break;
+                }
+            }
+        
+            let graphic_hdr = 0;
+            let graphic_hdr_radios = document.getElementsByName('graphic_hdr');
+        
+            for (let i = 0, length = graphic_hdr_radios.length; i < length; i++) 
+            {
+                if (graphic_hdr_radios[i].checked) 
+                {
+                    graphic_hdr = graphic_hdr_radios[i].value;
+                    break;
+                }
+            }
+        
+            let sOutputText = `[graphic_setting]\ngraphic_quality = ${graphic_quality}\nfps_level_pc = ${fps_level_pc}\ngraphic_quality_show = ${graphic_quality}\ngraphic_hdr = ${graphic_hdr}\ndisplay_mode_pc = 1\n\n[sensitive_setting]\nsensitive_gloabl = 3\nno_mirror = ${document.getElementById("general_sens").value}\nno_mirror_fps = ${document.getElementById("no_mirror_fps").value}\nred_dot = ${document.getElementById("red_dot").value}\nscope8_value = ${document.getElementById("scope8_value").value}\nscope4_value = ${document.getElementById("scope4_value").value}\nscope2_value = ${document.getElementById("scope2_value").value}\nscope3_value = ${document.getElementById("scope3_value").value}\nscope6_value = ${document.getElementById("scope6_value").value}\nfire_no_mirror = ${document.getElementById("general_sens").value}\nfire_no_mirror_fps = ${document.getElementById("no_mirror_fps").value}\nfire_red_dot = ${document.getElementById("red_dot").value}\nfire_scope2_value = ${document.getElementById("scope2_value").value}\nfire_scope3_value = ${document.getElementById("scope3_value").value}\nfire_scope4_value = ${document.getElementById("scope4_value").value}\nfire_scope6_value = ${document.getElementById("scope6_value").value}\nfire_scope8_value = ${document.getElementById("scope8_value").value}\nsensitive_jump = ${document.getElementById("general_sens").value}\nsensitive_third_person = ${document.getElementById("general_sens").value}`;
+        
+            document.getElementById("output_config").innerHTML = sOutputText;
+
+            if(fps_level_pc == 4 || graphic_quality == 0 || graphic_quality == 1 || graphic_hdr != -1)
+                document.getElementById("unsafe_warning").innerHTML = "You have chosen unsupported options. This may be considered cheating according to NetEase, use the config at your own risk.";
+            else
+                document.getElementById("unsafe_warning").innerHTML = "";
+        }
+    </script>
+</body>
